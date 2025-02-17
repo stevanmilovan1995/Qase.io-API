@@ -15,5 +15,16 @@ public class ProjectListResponse {
         private int filtered;
         private int count;
         private List<ProjectResponse.Result> entities;
+
+        public boolean hasProjects() {
+            return entities != null && !entities.isEmpty();
+        }
+
+        public int getActiveProjectsCount() {
+            return (int) entities.stream()
+                    .filter(project -> "active".equals(project.getAccess())).count();
+        }
     }
+
+
 }

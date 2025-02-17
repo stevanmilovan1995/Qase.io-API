@@ -13,11 +13,30 @@ public class ProjectRequest {
     private String group;
 
     public static ProjectRequest createDefaultProject(String title, String code) {
-        return ProjectRequest.builder()
+        return builder()
                 .title(title)
                 .code(code)
                 .description("Test project created with API")
                 .access("all")
+                .build();
+    }
+
+    public static ProjectRequest createPrivateProject(String title, String code) {
+        return builder()
+                .title(title)
+                .code(code)
+                .description("Private test project")
+                .access("private")
+                .build();
+    }
+
+    public static ProjectRequest createGroupProject(String title, String code, String group) {
+        return builder()
+                .title(title)
+                .code(code)
+                .description("Group test project")
+                .access("group")
+                .group(group)
                 .build();
     }
 }
