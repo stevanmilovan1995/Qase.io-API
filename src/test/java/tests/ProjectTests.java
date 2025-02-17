@@ -13,17 +13,13 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @DisplayName("Project API Tests")
-public class ProjectTests {
-    private static final Logger log = LoggerFactory.getLogger(ProjectTests.class);
+public class ProjectTests extends BaseTest{
     private static final String PROJECT_CODE = "NTP";
     private static final String PROJECT_TITLE = "New Test Project";
-    private ProjectService projectService;
     private ProjectRequest defaultProject;
 
     @BeforeEach
     void setUp() {
-        RestClient restClient = new RestClient();
-        projectService = new ProjectService(restClient);
         defaultProject = ProjectRequest.createDefaultProject(PROJECT_TITLE, PROJECT_CODE);
         cleanupProject();
     }

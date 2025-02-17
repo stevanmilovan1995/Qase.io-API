@@ -13,6 +13,7 @@ public class RequestSpecs {
                     .setBaseUri(ConfigManager.getInstance().get("baseUrl"))
                     .addHeader("Token", ConfigManager.getInstance().get("apiToken"))
                     .addHeader("Content-Type", "application/json")
+                    .addHeader("Accept", "application/json")
                     .build();
         }
         return defaultSpec;

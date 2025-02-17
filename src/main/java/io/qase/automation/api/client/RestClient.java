@@ -15,7 +15,7 @@ public class RestClient {
     private static final Logger log = LoggerFactory.getLogger(RestClient.class);
 
     public enum HttpMethod {
-        GET, POST, PUT, DELETE
+        GET, POST, PUT, PATCH, DELETE
     }
 
     private Response executeRequest(HttpMethod method, String endpoint, Object body) {
@@ -47,6 +47,10 @@ public class RestClient {
 
     public Response put(String endpoint, Object body) {
         return executeRequest(HttpMethod.PUT, endpoint, body);
+    }
+
+    public Response patch(String endpoint, Object body) {
+        return executeRequest(HttpMethod.PATCH, endpoint, body);
     }
 
     public Response delete(String endpoint) {
