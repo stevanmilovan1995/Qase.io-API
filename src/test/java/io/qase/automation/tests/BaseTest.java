@@ -4,7 +4,6 @@ import io.qase.automation.services.ProjectService;
 import org.apache.logging.log4j.LogManager;
 import org.junit.jupiter.api.BeforeEach;
 import org.apache.logging.log4j.Logger;
-import org.junit.platform.commons.logging.LoggerFactory;
 
 public abstract class BaseTest {
     protected static final Logger log = LogManager.getLogger(BaseTest.class);

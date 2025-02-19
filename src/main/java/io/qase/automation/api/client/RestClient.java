@@ -27,7 +27,6 @@ public class RestClient {
                 .filter(new ResponseLoggingFilter(LogDetail.STATUS))
                 .filter(new ResponseLoggingFilter(LogDetail.HEADERS))
                 .spec(RequestSpecs.getDefaultSpec());
-        ;
         if (body != null) {
             request.body(body);
         }
