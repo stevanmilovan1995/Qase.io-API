@@ -1,61 +1,46 @@
 package io.qase.automation.services;
-
 import io.qase.automation.api.client.RestClient;
-import io.qase.automation.models.request.ProjectRequest;
-import io.qase.automation.models.response.ProjectListResponse;
-import io.qase.automation.models.response.ProjectResponse;
+import io.qase.automation.pojo.projects.requests.CreateProjectRequest;
+import io.qase.automation.pojo.projects.responses.GetProjectsResponse;
+import io.qase.automation.pojo.projects.responses.CreateProjectResponse;
+import io.qase.automation.pojo.projects.responses.GetProjectResponse;
 import io.restassured.response.Response;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import static io.qase.automation.pojo.projects.data.ProjectTestData.BASE_PATH;
+
 
 public class ProjectService {
-    private static final Logger log = LoggerFactory.getLogger(ProjectService.class);
-    private static final String BASE_PATH = "/project";
+    protected static final Logger log = LogManager.getLogger(ProjectService.class);
     private final RestClient restClient;
-
-    public ProjectService(RestClient restClient) {
+    public ProjectService(RestClient restClient){
         this.restClient = restClient;
     }
 
-    public ProjectResponse createProject(ProjectRequest request) {
+    public CreateProjectResponse createProject(CreateProjectRequest request) {
         log.info("Creating new project with code: {}", request.getCode());
         Response response = restClient.post(BASE_PATH, request);
-        return response.as(ProjectResponse.class);
+        return response.as(CreateProjectResponse.class);
     }
 
-    public ProjectResponse getProject(String code) {
+    public GetProjectResponse getProject(String code) {
         log.info("Fetching project details for code: {}", code);
         String path = String.format("%s/%s", BASE_PATH, code);
         Response response = restClient.get(path);
-        return response.as(ProjectResponse.class);
+        return response.as(GetProjectResponse.class);
     }
 
-    public ProjectResponse updateProject(String code, ProjectRequest request) {
-        log.info("Updating project with code: {}", code);
-        String path = String.format("%s/%s", BASE_PATH, code);
-        Response response = restClient.put(path, request);
-        return response.as(ProjectResponse.class);
-    }
-
-    public ProjectResponse deleteProject(String code) {
+    public void deleteProject(String code) {
         log.info("Deleting project with code: {}", code);
         String path = String.format("%s/%s", BASE_PATH, code);
         Response response = restClient.delete(path);
-        return response.as(ProjectResponse.class);
+        response.as(CreateProjectResponse.class);
     }
 
-    public ProjectListResponse getAllProjects() {
+    public GetProjectsResponse getAllProjects() {
         log.info("Fetching all projects");
         Response response = restClient.get(BASE_PATH);
-        return response.as(ProjectListResponse.class);
+        return response.as(GetProjectsResponse.class);
     }
 
-    public boolean projectExists(String code) {
-        try {
-            getProject(code);
-            return true;
-        } catch (Exception e) {
-            return false;
-        }
-    }
 }

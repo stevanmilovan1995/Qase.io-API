@@ -6,13 +6,14 @@ import io.restassured.filter.log.RequestLoggingFilter;
 import io.restassured.filter.log.ResponseLoggingFilter;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 
 import static io.restassured.RestAssured.given;
 
 public class RestClient {
-    private static final Logger log = LoggerFactory.getLogger(RestClient.class);
+    protected static final Logger log = LogManager.getLogger(RestClient.class);
 
     public enum HttpMethod {
         GET, POST, PUT, PATCH, DELETE
